@@ -19,7 +19,10 @@ class table_L_T_S_H_(DefaultTable.DefaultTable):
 		# ouch: the assertion is not true in Chicago!
 		#assert numGlyphs == ttFont['maxp'].numGlyphs
 		yPels = array.array("B")
-		yPels.fromstring(data)
+		try:
+			yPels.fromstring(data)
+		except AttributeError:
+			yPels.frombytes(data)
 		self.yPels = {}
 		for i in range(numGlyphs):
 			self.yPels[ttFont.getGlyphName(i)] = yPels[i]

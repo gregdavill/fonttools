@@ -132,7 +132,10 @@ class table__p_o_s_t(DefaultTable.DefaultTable):
 		from fontTools import agl
 		numGlyphs = ttFont['maxp'].numGlyphs
 		indices = array.array("H")
-		indices.fromstring(data)
+		try:
+			indices.fromstring(data)
+		except AttributeError:
+			indices.frombytes(data)
 		if sys.byteorder != "big": indices.byteswap()
 		# In some older fonts, the size of the post table doesn't match
 		# the number of glyphs. Sometimes it's bigger, sometimes smaller.

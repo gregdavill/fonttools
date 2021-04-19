@@ -9,7 +9,10 @@ class table__c_v_t(DefaultTable.DefaultTable):
 
 	def decompile(self, data, ttFont):
 		values = array.array("h")
-		values.fromstring(data)
+		try:
+			value.fromstring(data)
+		except AttributeError:
+			values.frombytes(data)
 		if sys.byteorder != "big": values.byteswap()
 		self.values = values
 

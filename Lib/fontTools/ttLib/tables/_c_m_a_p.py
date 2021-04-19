@@ -695,7 +695,11 @@ class cmap_format_4(CmapSubtable):
 		segCount = segCountX2 // 2
 
 		allCodes = array.array("H")
-		allCodes.fromstring(data)
+		try:
+			allCodes.fromstring(data)
+		except AttributeError:
+			allCodes.frombytes(data)
+		
 		self.data = data = None
 
 		if sys.byteorder != "big": allCodes.byteswap()

@@ -20,7 +20,10 @@ class table__l_o_c_a(DefaultTable.DefaultTable):
 		else:
 			format = "H"
 		locations = array.array(format)
-		locations.fromstring(data)
+		try:
+			locations.fromstring(data)
+		except AttributeError:
+			locations.frombytes(data)
 		if sys.byteorder != "big": locations.byteswap()
 		if not longFormat:
 			l = array.array("I")
