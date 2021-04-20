@@ -83,7 +83,10 @@ class table__p_o_s_t(DefaultTable.DefaultTable):
 			numGlyphs = ttFont['maxp'].numGlyphs
 		data = data[2:]
 		indices = array.array("H")
-		indices.fromstring(data[:2*numGlyphs])
+		try:
+			indices.fromstring(data[:2*numGlyphs])
+		except AttributeError:
+			indices.frombytes(data[:2*numGlyphs])
 		if sys.byteorder != "big": indices.byteswap()
 		data = data[2*numGlyphs:]
 		self.extraNames = extraNames = unpackPStrings(data)
